@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 
-struct kompleksno{
+typedef struct kompleksno{
     int re,im;
-};
+} kompleksno;
 
 typedef struct sklad {
     char ime[10];
@@ -52,15 +52,10 @@ int main(){
 
     struct kompleksno *z;
     z = (kompleksno*) malloc(sizeof(kompleksno));
-    z++ ->re = 5;
+    z ->re = 5;
     z ->im = 3;
-    printf("%d,%d",z.re,z.im);
+    printf("(%d,%d)",z->re,z->im);
     free(z);
     
-
-
-
-
-
     return 0;
 }
