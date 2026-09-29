@@ -1,6 +1,32 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+
+typedef int (*Operacija)(int ,int);
+
+int sestej(int a, int b){
+    return a + b;
+}
+int odstej(int a, int b){
+    return a - b;
+}
+
+int pomnozi(int a, int b){
+    return a * b;
+}
+
+int delitev(int a, int b){
+    return a / b;
+}
+
+
+
+Operacija ops[] = { sestej,odstej,pomnozi,delitev};
+char simboli[] = {'+','-','*','/'};
+
+
+
+
 //to je general struktura metode samo dodas paramtre in jih v return pravilno castas *(tip *)var ...
 int primerjaj(const void *a, const  void *b){
     return *(int *)b  - *(int *)a; 
@@ -38,9 +64,8 @@ char *preberiBesedo(void) {
 void preberiBesedo(char *beseda) {
     scanf("%s", beseda);   // klicatelj priskrbi pomnilnik
 }
-*/
-    int x[7];
-    int *p = x;
+int x[7];
+int *p = x;
     char vhod[] = "42,7,13,99,1,56,3";
     char *result = strtok(vhod,",");
     while (result != NULL){
@@ -54,4 +79,33 @@ void preberiBesedo(char *beseda) {
         printf("%d ",*ptr);
     }
     printf("\n");
+    
+    typedef void urediFUnkcija(int *);
+    //to je funkcija 
+    urediFUnkcija uredi;
+    //to je spremenljivka -> kazalec 
+    urediFUnkcija *uredi;
+    
+    int (*compar)(const void *,const void *);
+    
+    typedef int (*Primerjalnik)(const void *,const void *);
+    Primerjalnik c = primerjaj;
+    //primerjalnik ni funkcija je ime za tip c je spremenljivka
+    //c je kazalec ki drzi naslov neke funkcij
+    //primerjalnik je kazalec 
+    typedef int Celo;
+    Celo c = 5;
+    
+    */
+
+    int a = 5;
+    int b = 3;
+    for (int i = 0; i < sizeof(ops)/sizeof(ops[0]);i++){
+        int rez = ops[i](a,b);
+        printf("%d %c %d = %d\n",a,simboli[i],b,rez);
+    }
+
+
+
+
 }
