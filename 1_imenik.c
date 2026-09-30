@@ -57,30 +57,47 @@ void beriVrstico(char *imedat,oseba *osebe,int stVrstic){
         //tukaj ze odreze ime
         int stAtrb = 0;
         while (result !=NULL){
+            //to se da izboljsat s pointerji
+            char **p;
             switch (stAtrb)
             {
                 //problem sami pointerji so v structu rabis alloc prostor
                 case 0:
+                    p = &temp.ime;
+                    /*
                     temp.ime = malloc(strlen(result)+1);
                     pomnilnik += strlen(result)+1;
                     strcpy(temp.ime,result);
                     stAtrb++;
+                    */
                     break;
                 case 1:
+                    p = &temp.priimek;
+                    /*
                     temp.priimek = malloc(strlen(result)+1);
                     pomnilnik += strlen(result)+1;
                     strcpy(temp.priimek,result);    
                     stAtrb++;
+                    */
                     break;
                 case 2:
+                    p = &temp.telefon;
+                    /*
                     temp.telefon = malloc(strlen(result)+1);
                     result[strcspn(result,"\n")]='\0';
                     pomnilnik += strlen(result)+1;
                     strcpy(temp.telefon,result);
+                    */
                     break;
             }
+            result[strcspn(result,"\n")]='\0';
+            *p = malloc(strlen(result)+1);
+            pomnilnik += strlen(result)+1;
+            strcpy(*p,result);
+            stAtrb++;
             result = strtok(NULL,":");
         }
+                    
         *osebe = temp;
         osebe++;
     }    
