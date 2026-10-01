@@ -7,7 +7,7 @@
 
 typedef struct bes {
     char beseda[MAX];
-    struct bes *nasl; // kazalec na naslednji element seznama
+    struct bes *nasl; 
     struct bes *naslCrka;
 } beseda;
 
@@ -22,6 +22,7 @@ beseda * ustvariBesedo(beseda *zac,char *vhodna){
 }
 //preuredit da vraca vec vrednosti. 1 ce ni ujemanja 0 ce je arg1 manjse od arg2  -1 ce je arg2 vecje od arg1
 
+//stara metoda za sortiranje
 int obstaja(beseda *zac, char *iskana){
     beseda *r = zac;
     while (r != NULL){
@@ -31,17 +32,17 @@ int obstaja(beseda *zac, char *iskana){
     }
     return 0;
 }
-
+//2.naloga  hkrati preskoci duplikate sortira po abecedi dodaja elemeente
 beseda * vstaviUrejeno(beseda *zac, char *iskana){
     // prazen seznam ali nova beseda pride pred prvo: nov element postane glava
     if (zac == NULL || strcmp(iskana, zac->beseda) < 0){
         return ustvariBesedo(zac, iskana);
     }
-
     // prejsnji element
     beseda *tmp = zac; 
-    beseda *r = zac;
+
     // trenutni element
+    beseda *r = zac;
     while (r != NULL){
         int primerjava = strcmp(r->beseda, iskana);
         if (primerjava == 0) return zac; //duplikat
@@ -59,8 +60,6 @@ beseda * vstaviUrejeno(beseda *zac, char *iskana){
     tmp->nasl = ustvariBesedo(NULL, iskana);
     return zac;
 }
-
-
 
 
 beseda * preberiDatoteko(char *imeDat,beseda *zac){
@@ -86,6 +85,16 @@ beseda * preberiDatoteko(char *imeDat,beseda *zac){
     return temp;
 }
 
+//3. naloga 
+void izpisiBesede(beseda *zac){
+    for (beseda *r = zac; r != NULL;r = r ->nasl){
+        printf("%s ", r->beseda);
+    }
+    printf("\n");
+}
+
+
+//4. naloga
 int poisci(beseda *zac,char *word){
     int stevec = 0;
     for (beseda *r = zac; r != NULL;r = r ->nasl){
@@ -95,7 +104,7 @@ int poisci(beseda *zac,char *word){
     }
     return -1;
 }
-
+//5 naloga
 int povprecnoIskanje(fIsci *isci,beseda *zac){
     int stBesed = 0;
     int steviloKorakov = 0;
@@ -106,6 +115,7 @@ int povprecnoIskanje(fIsci *isci,beseda *zac){
     return (int) (steviloKorakov/stBesed);
 }
 
+//6. naloga
 void dopolniSeznam(beseda *zac){
     //kazalec na zacetkui hrani prvo crko 
     beseda *prvaCrke = zac;
@@ -119,7 +129,7 @@ void dopolniSeznam(beseda *zac){
         }
     }
 }
-
+// 7. naloga
 int poisciHitreje(beseda *zac,char *word){
     if (zac == NULL) return -1;
     int stevec = 0;
@@ -146,20 +156,13 @@ int poisciHitreje(beseda *zac,char *word){
     }
     return -1;
 }
-
+//9.naloga 
 void pocistiSeznam(beseda *zac){
     while (zac != NULL){
         beseda *naslednji = zac->nasl;
         free(zac);
         zac = naslednji;
     }
-}
-
-void izpisiBesede(beseda *zac){
-    for (beseda *r = zac; r != NULL;r = r ->nasl){
-        printf("%s ", r->beseda);
-    }
-    printf("\n");
 }
 
 
